@@ -9,17 +9,30 @@
             <c:forEach items="#{coffeeService.coffeeList}" var="coffee_card">
                 <span class="span_#{coffee_card.type} span">
                     <h:commandLink action="#{coffeeService.addingToTheOrderList()}" value="#{coffee_card.type}">
-                        <f:param name="type" value="#{coffee_card.type}"/>
-                        <f:param name="price" value="#{coffee_card.price}"/>
+                        <span class="span_type">
+                            <f:param name="type" value="#{coffee_card.type}"/>
+                        </span>
+                        <span class="span_price">
+                            <f:param name="price" value="#{coffee_card.price}"/>
+                        </span>
+                        <br/>
                     </h:commandLink>
                 </span>
             </c:forEach>
-            <span class="spinner">
-                <p:spinner min="1" max="10" value="#{coffeeService.countCups}"/>
-            </span>
+
+            <br/>
+                <span class="spinner">
+                    <p:spinner min="1" max="10" value="#{coffeeService.countCups}"/>
+                </span>
+            <br/>
         </div>
 
         <div class="coffee_order">
+            <span class="order_title">
+                <h:outputText value="Order list"/>
+                <br/>
+            </span>
+
             <c:forEach items="#{coffeeService.orderCoffeeList}" var="coffee_order">
                 <span class="coffee_order_#{coffee_order.type} span">
                     <h:outputText value="#{coffee_order.type}"/>
@@ -31,6 +44,19 @@
                     <h:outputText value="#{coffee_order.countCups}"/>
                 </span>
             </c:forEach>
+
+            <br/>
+            <span class="total">
+                <h:outputText value="total: "/>
+                <br/>
+                <h:outputText id="currency" value="UAH: "/>
+                <h:outputText id="total_sum" value="#{coffeeService.totalPrice}"/>
+                <br/>
+            </span>
         </div>
+    </h:form>
+
+    <h:form>
+        <p:commandButton id="pay_btn" value="Pay"/>
     </h:form>
 </ui:composition>

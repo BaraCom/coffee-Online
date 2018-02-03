@@ -1,4 +1,4 @@
-package com.bkolomiets.controllers;
+package com.bkolomiets;
 
 import sun.awt.util.IdentityLinkedList;
 
