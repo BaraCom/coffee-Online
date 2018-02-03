@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xml:lang="en" lang="en">
+
+    <h:form>
+        <div class="coffee_list">
+            <c:forEach items="#{coffeeService.coffeeList}" var="coffee_card">
+                <span class="span_#{coffee_card.type} span">
+                    <h:commandLink action="#{coffeeService.addingToTheOrderList()}" value="#{coffee_card.type}">
+                        <f:param name="type" value="#{coffee_card.type}"/>
+                        <f:param name="price" value="#{coffee_card.price}"/>
+                    </h:commandLink>
+                </span>
+            </c:forEach>
+            <span class="spinner">
+                <p:spinner min="1" max="10" value="#{coffeeService.countCups}"/>
+            </span>
+        </div>
+
+        <div class="coffee_order">
+            <c:forEach items="#{coffeeService.orderCoffeeList}" var="coffee_order">
+                <span class="coffee_order_#{coffee_order.type} span">
+                    <h:outputText value="#{coffee_order.type}"/>
+                </span>
+                <span class="coffee_order_#{coffee_order.price} span">
+                    <h:outputText value="#{coffee_order.price}"/>
+                </span>
+                <span class="coffee_order_count_#{coffee_order.countCups} span">
+                    <h:outputText value="#{coffee_order.countCups}"/>
+                </span>
+            </c:forEach>
+        </div>
+    </h:form>
+</ui:composition>
