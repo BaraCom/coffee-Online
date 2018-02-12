@@ -4,59 +4,143 @@
                 xmlns:p="http://primefaces.org/ui"
                 xml:lang="en" lang="en">
 
-    <h:form>
-        <div class="coffee_list">
-            <c:forEach items="#{coffeeService.coffeeList}" var="coffee_card">
-                <span class="span_#{coffee_card.type} span">
-                    <h:commandLink action="#{coffeeService.addingToTheOrderList()}" value="#{coffee_card.type}">
-                        <span class="span_type">
-                            <f:param name="type" value="#{coffee_card.type}"/>
-                        </span>
-                        <span class="span_price">
-                            <f:param name="price" value="#{coffee_card.price}"/>
-                        </span>
-                        <br/>
-                    </h:commandLink>
-                </span>
-            </c:forEach>
+    <div class="wrapper">
+        <div class="left_div">
+            <div class="logo_1"/>
+            <div class="logo_2"/>
 
-            <br/>
-                <span class="spinner">
-                    <p:spinner min="1" max="10" value="#{coffeeService.countCups}"/>
+            <div class="login_reg">
+                <span class="reg">
+                    <a href="#">
+                        registration
+                    </a>
                 </span>
-            <br/>
+                <span class="slash">
+                    /
+                </span>
+                <span class="login">
+                    <a href="#">
+                        login
+                    </a>
+                </span>
+            </div>
+
+            <div class="main_menu">
+                <ul class="main_menu_ul">
+                    <li class="main_menu_li">
+                        <a href="#" class="a main_a">
+                            Главная
+                        </a>
+                    </li>
+                    <li class="main_menu_li">
+                        <a href="#" class="a about_a">
+                            О кофе
+                        </a>
+                    </li>
+                    <li class="main_menu_li">
+                        <a href="#" class="a contacts_a">
+                            Контакты
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="coffee_order">
-            <span class="order_title">
-                <h:outputText value="Order list"/>
-                <br/>
-            </span>
+        <div class="body_div">
+            <h:form>
+                <div class="middle_div">
+                    <p class="coffee_card">
+                        - Coffee card -
+                    </p>
+                    <div class="coffee_type_main">
+                        <c:forEach items="#{coffeeService.coffeeList}" var="coffee_card">
+                            <div class="coffee_type">
+                                <p class="type">
+                                    #{coffee_card.type}
+                                </p>
+                                <div class="coffee_bg">
+                                    <p class="price">
+                                        UAH:
 
-            <c:forEach items="#{coffeeService.orderCoffeeList}" var="coffee_order">
-                <span class="coffee_order_#{coffee_order.type} span">
-                    <h:outputText value="#{coffee_order.type}"/>
-                </span>
-                <span class="coffee_order_#{coffee_order.price} span">
-                    <h:outputText value="#{coffee_order.price}"/>
-                </span>
-                <span class="coffee_order_count_#{coffee_order.countCups} span">
-                    <h:outputText value="#{coffee_order.countCups}"/>
-                </span>
-            </c:forEach>
+                                        <span class="price_span">
+                                            #{coffee_card.price}
+                                        </span>
+                                    </p>
+                                    <p class="btn_coffee_type">
+                                        <h:commandLink styleClass="btn_coffee_type_link" action="#{coffeeService.addingToTheOrderList()}"
+                                                       value="Add">
+                                            <f:param name="type" value="#{coffee_card.type}"/>
+                                            <f:param name="price" value="#{coffee_card.price}"/>
+                                        </h:commandLink>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+                <div class="right_div">
+                    <p:spinner styleClass="spinner" min="0" max="10" value="#{coffeeService.countCups}"/>
+                </div>
+                <div class="footer">
+                    <p class="order_list">
+                        Order list
+                    </p>
+                    <div class="footer_order">
+                        <c:forEach items="#{coffeeService.orderCoffeeList}" var="coffee_order">
+                            <div class="order">
+                                <div class="order_left_div">
+                                    <div class="order_coffee_type_div">
+                                        <span class="coffee_type_span">
+                                            #{coffee_order.type}
+                                        </span>
+                                        <span class="coffee_type_line">
+                                            |
+                                        </span>
+                                    </div>
+                                    <div class="order_currency">
+                                        <span class="currency">
+                                            UAH
+                                        </span>
+                                        <span class="order_currency_line">
+                                            |
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="order_right_div">
+                                    <div class="order_quantity_cups">
+                                        <span class="quantity_cups">
+                                            #{coffee_order.countCups}
+                                        </span>
+                                    </div>
+                                    <div class="order_currency">
+                                        <span class="currency_num">
+                                            #{coffee_order.price}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
 
-            <br/>
-            <span class="total">
-                <h:outputText value="total: "/>
-                <br/>
-                <h:outputText id="currency" value="UAH: "/>
-                <h:outputText id="total_sum" value="#{coffeeService.totalPrice}"/>
-                <br/>
-            </span>
+                    <div class="total_buy">
+                        <div class="total">
+                            <span class="total_price">
+                                All:
+                            </span>
+                            <span class="total_price_quantity">
+                                #{coffeeService.totalPrice}
+                            </span>
+                        </div>
+                        <div class="buy">
+                            <a href="#">
+                                <span class="buy_span">
+                                    Buy
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
         </div>
-    </h:form>
-
-    <h:form>
-        <p:commandButton id="pay_btn" value="Pay"/>
-    </h:form>
+    </div>
 </ui:composition>

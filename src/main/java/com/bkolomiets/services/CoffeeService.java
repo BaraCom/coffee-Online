@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import static java.lang.Double.parseDouble;
 
 @ManagedBean(eager = true)
@@ -36,6 +37,8 @@ public class  CoffeeService {
         Map<String, String> coffeeParam = getCoffeeParam();
         String coffeeType = coffeeParam.get(COFFEE_TYPE);
         double coffeePrice = parseDouble(coffeeParam.get(COFFEE_PRICE));
+
+        System.out.println(coffeeType + " : " + coffeePrice);
 
         for (CoffeeOrder coffeeOrder : orderCoffeeList) {
             if (isContainsList(coffeeOrder, coffeeType)) {
