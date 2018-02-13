@@ -1,12 +1,9 @@
 package com.bkolomiets;
 
-import sun.awt.util.IdentityLinkedList;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import java.util.List;
 
 @ManagedBean
 public class ButtonView {

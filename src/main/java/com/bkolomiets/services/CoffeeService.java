@@ -1,5 +1,6 @@
 package com.bkolomiets.services;
 
+import com.bkolomiets.GrowlView;
 import com.bkolomiets.dao.impl.CoffeeDaoImpl;
 import com.bkolomiets.entity.Coffee;
 import com.bkolomiets.entity.CoffeeOrder;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import static java.lang.Double.parseDouble;
 
 @ManagedBean(eager = true)
@@ -22,13 +22,13 @@ public class  CoffeeService {
     private int countCupsSpinner = new CoffeeOrder().getCountCups();
 
     public double getTotalPrice() {
-        double totalPrice = 0;
+        CoffeeOrder coffeeOrder = new CoffeeOrder();
 
         for (CoffeeOrder coffee : orderCoffeeList) {
-            totalPrice += coffee.getPrice();
+            coffeeOrder.setTotalPrice(coffeeOrder.getTotalPrice() + coffee.getPrice());
         }
 
-        return totalPrice;
+        return coffeeOrder.getTotalPrice();
     }
 
     public void addingToTheOrderList() {
@@ -38,14 +38,18 @@ public class  CoffeeService {
         String coffeeType = coffeeParam.get(COFFEE_TYPE);
         double coffeePrice = parseDouble(coffeeParam.get(COFFEE_PRICE));
 
-        System.out.println(coffeeType + " : " + coffeePrice);
-
         for (CoffeeOrder coffeeOrder : orderCoffeeList) {
             if (isContainsList(coffeeOrder, coffeeType)) {
                 newCoffeeOrder = coffeeOrder;
 
                 break;
             }
+        }
+
+        if (isNullCountCupsSpinner()) {
+            new GrowlView().info();
+
+            return;
         }
 
         if (newCoffeeOrder == null) {
@@ -97,5 +101,9 @@ public class  CoffeeService {
 
     private boolean isContainsList(Coffee coffee, String coffeeType) {
         return coffee.getType().contains(coffeeType);
+    }
+
+    private boolean isNullCountCupsSpinner() {
+        return getCountCups() == 0;
     }
 }

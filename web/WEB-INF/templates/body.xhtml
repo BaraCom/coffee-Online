@@ -48,6 +48,8 @@
 
         <div class="body_div">
             <h:form>
+                <p:growl for="info" sticky="true" showDetail="true"/>
+
                 <div class="middle_div">
                     <p class="coffee_card">
                         - Coffee card -
@@ -67,7 +69,8 @@
                                         </span>
                                     </p>
                                     <p class="btn_coffee_type">
-                                        <h:commandLink styleClass="btn_coffee_type_link" action="#{coffeeService.addingToTheOrderList()}"
+                                        <h:commandLink styleClass="btn_coffee_type_link"
+                                                       action="#{coffeeService.addingToTheOrderList()}"
                                                        value="Add">
                                             <f:param name="type" value="#{coffee_card.type}"/>
                                             <f:param name="price" value="#{coffee_card.price}"/>

@@ -1,7 +1,7 @@
 package com.bkolomiets.entity;
 
 public class CoffeeOrder extends Coffee {
-    private int countCups = 1;
+    private int countCups;
     private double totalPrice;
 
     public CoffeeOrder() {}
